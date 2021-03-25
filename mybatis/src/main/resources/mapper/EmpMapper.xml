@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.afei.mybatis.mapper.EmpMapper">
+    
+    <resultMap id="map" type="com.afei.mybatis.model.Emp" >
+        <id column="id" property="id" />
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="VARCHAR" typeHandler="com.afei.mybatis.interception.EmpStatusEnumTypeHandler"/>
+        <result column="gmt_create" property="gmtCreate" />
+    </resultMap>
+    
+    <insert id="insertEmp">
+        insert into emp(name,age,status,gmt_create) values(#{name},#{age},#{status,typeHandler=com.afei.mybatis.interception.EmpStatusEnumTypeHandler},#{gmtCreate})
+    </insert>
+
+    <select id="selectList" resultMap="map">
+        SELECT * FROM emp WHERE id = #{id}
+    </select>
+</mapper>
